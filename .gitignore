@@ -1,9 +1,17 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
 
-# Virtual env
+# Virtual environments
 .venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
 
 # Jupyter
 .ipynb_checkpoints/
@@ -12,5 +20,20 @@ __pycache__/
 models/
 datasets/
 
+# Experiment outputs
+outputs/
+runs/
+logs/
+
+# IDEs
+.vscode/
+.idea/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
 # OS
 .DS_Store
+Thumbs.db
