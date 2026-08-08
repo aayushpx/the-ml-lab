@@ -10,7 +10,8 @@ import torch.nn as nn
 import torch.optim as optim # core
 
 # XOR dataset
-X = torch.tensor([ # X: inputs/features
+# X: inputs/features
+X = torch.tensor([ 
     [0.0, 0.0],
     [0.0, 1.0],
     [1.0, 0.0],
@@ -81,14 +82,21 @@ n_epochs = 10000
 
 
 for epoch in range(n_epochs):
+
+    # Step 1: Clear gradients left over from previous epoch.
+    # PyTorch accumulates gradients by default
     optimizer.zero_grad()
 
-    output = model(X)
+    # Step 2: Perform forward pass
+    output = model(X) # calls model.forward(X)
 
+    # Step 3: Compare predictions with targets
     loss = criterion(output, y)
 
+    # Step 4: Perform backprop
     loss.backward()
 
+    # Step 5: Update weights and biases using SGD
     optimizer.step()
 
     if epoch % 1000 == 0:
