@@ -7,37 +7,28 @@ trained with SGD to learn the XOR function.
 
 import torch
 import torch.nn as nn
-import torch.optim as optim # core
+import torch.optim as optim  # core
 
 # XOR dataset
 # X: inputs/features
-X = torch.tensor([ 
-    [0.0, 0.0],
-    [0.0, 1.0],
-    [1.0, 0.0],
-    [1.0, 1.0]
-])
+X = torch.tensor([[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]])
 
 # targets/labels y, 2-dimensional array
-y = torch.tensor([ 
-    [0.0],
-    [1.0],
-    [1.0],
-    [0.0]
-])
+y = torch.tensor([[0.0], [1.0], [1.0], [0.0]])
 
 print(X.shape)
 print(y.shape)
 
+
 # Defining network
-class XORNet(nn.Module): # inherits from torch.nn.Module
+class XORNet(nn.Module):  # inherits from torch.nn.Module
     def __init__(self):
         super().__init__()
-        self.hidden = nn.Linear(2, 2) # Linear(input features, output features)
-        self.output = nn.Linear(2, 1) # 2 input feature, 1 output feature
-        self.sigmoid = nn.Sigmoid()   # sigmoid activation function
+        self.hidden = nn.Linear(2, 2)  # Linear(input features, output features)
+        self.output = nn.Linear(2, 1)  # 2 input feature, 1 output feature
+        self.sigmoid = nn.Sigmoid()  # sigmoid activation function
 
-    def forward(self, x): # forward propagation of input x
+    def forward(self, x):  # forward propagation of input x
         """Describe how input data moves through the network"""
 
         # self.hidden(x) performs the hidden layer's
@@ -47,19 +38,20 @@ class XORNet(nn.Module): # inherits from torch.nn.Module
         # apply sigmoid separately to every hidden neuron value.
         h = self.sigmoid(hidden_net_input)
 
-        # pass the two hidden outputs into the output layer. 
+        # pass the two hidden outputs into the output layer.
         output_net_input = self.output(h)
 
-        # apply sigmoid to convert each output into a value 
+        # apply sigmoid to convert each output into a value
         # 0 and 1
         z = self.sigmoid(output_net_input)
 
         return z
 
-# fix random seed so initial parameter values are reproducible 
+
+# fix random seed so initial parameter values are reproducible
 torch.manual_seed(0)
 
-# create one XORNet object 
+# create one XORNet object
 # calls XORNET.__init__()
 model = XORNet()
 
@@ -88,7 +80,7 @@ for epoch in range(n_epochs):
     optimizer.zero_grad()
 
     # Step 2: Perform forward pass
-    output = model(X) # calls model.forward(X)
+    output = model(X)  # calls model.forward(X)
 
     # Step 3: Compare predictions with targets
     loss = criterion(output, y)
